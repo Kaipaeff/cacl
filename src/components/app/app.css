@@ -9,11 +9,8 @@
 }
 
 .App {
-  max-width: 700px;
-  height: 800px;
-  margin: 50px auto;
-  background-color: #ffffff;
-  border-radius: 30px;
-  border: 1px solid #000000;
-  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 100px auto;
 }
