@@ -1,6 +1,6 @@
-## Calculator web-application
+# Calculator web-application
 
-# to start: 
+## to start: 
 
 1. Clone this repository into your machine
 2. Open folder with IDE
