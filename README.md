@@ -1,4 +1,4 @@
-## Cacculator web-application
+## Calculator web-application
 
 # to start: 
 
