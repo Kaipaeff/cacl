@@ -1,9 +1,9 @@
 import Calculator from '../calculator/Calculator';
-import style from './app.module.css';
+import './app.css';
 
 function App() {
   return (
-    <div className={style.App}>
+    <div className='App'>
       <Calculator />
     </div>
   );
