@@ -8,15 +8,11 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #b9a8cf;
-}
-
 .App {
   max-width: 700px;
   height: 800px;
   margin: 50px auto;
-  background-color: #ffffff;
+  background-color: #1f1f1f;
   border-radius: 30px;
   padding: 50px;
 }
