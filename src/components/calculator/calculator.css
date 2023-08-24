@@ -54,6 +54,14 @@
   cursor: pointer;
 }
 
+.button:active {
+  background-color: #828181;
+}
+
 .button.operation {
   background-color: #e09f3e;
+}
+
+.button.operation:active {
+  background-color: #e1b26d;
 }
