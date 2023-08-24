@@ -14,11 +14,12 @@ export default function Calculator() {
 
 
   const handleClick = (val) => {
-    if (val !== 'AC') {
-      setValue((prev) => prev + val);
-    } else {
-      setValue('');
-    }
+
+    const operators = ['÷', 'x', '-', '=', '+'];
+
+    value === '' && (val === '0' || operators.includes(val))
+      ? setValue('')
+      : (val !== 'AC' ? setValue((prev) => prev + val) : setValue(''))
   }
 
 
