@@ -1,30 +1,32 @@
-import React, { useState, useRef, useEffect } from "react";
-import './calculator.css'
+import React, { useRef, useEffect, useContext } from "react";
+import AppContext from "../../context/AppContext";
 
-import Buttons from '../../buttons/Buttons'
+import './calculator.css';
+
+import Buttons from '../../data/Buttons';
 import { evalExpression } from "../../functions/functions";
 
 
 export default function Calculator() {
 
-  const [value, setValue] = useState('');
+  const { value, setValue } = useContext(AppContext);
+
   const inputRef = useRef(null);
 
   useEffect(() => {
     inputRef.current.focus();
   })
 
-  const handleClick = (val) => {
+  const handleClick = async (val) => {
 
     const operators = ['/', '*', '-', '=', '+'];
 
     try {
       if (val === '=') {
         if (value) {
-          setValue((prev) => {
-            const newValue = evalExpression(prev);
-            return newValue;
-          });
+          const newValue = await evalExpression(value);
+          setValue(newValue);
+
         } else {
           setValue('')
         }
@@ -45,7 +47,7 @@ export default function Calculator() {
       setValue('Ошибка')
       setTimeout(() => {
         setValue('')
-      }, 500)
+      }, 1000)
       console.log('Error calculating:', error);
     }
   }
