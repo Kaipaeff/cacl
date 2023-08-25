@@ -3,7 +3,7 @@ import AppContext from "../../context/AppContext";
 
 import './calculator.css';
 
-import { buttons } from '../../data/Buttons'
+import { buttons } from '../../data/Buttons';
 import { operators } from "../../data/Operators";
 import { evalExpression } from "../../functions/functions";
 
@@ -24,7 +24,7 @@ export default function Calculator() {
           const newValue = await evalExpression(value);
           setValue(newValue);
         } else {
-          setValue('')
+          setValue('');
         }
       } else if (val === 'AC') {
         setValue('');
@@ -40,16 +40,16 @@ export default function Calculator() {
         });
       }
     } catch (error) {
-      setValue('Ошибка')
+      setValue('Ошибка');
       setTimeout(() => {
-        setValue('')
-      }, 1000)
+        setValue('');
+      }, 1000);
       console.log('Error calculating:', error);
     }
   }
 
   const handleInputChange = (event) => {
-    setValue(event.target.value)
+    setValue(event.target.value);
   }
 
   return (
