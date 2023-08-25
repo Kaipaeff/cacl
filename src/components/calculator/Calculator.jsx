@@ -2,6 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 import './calculator.css'
 
 import Buttons from '../../buttons/Buttons'
+import {evaluate} from 'mathjs';
+
+const evalExpression = (expression) => {
+  const result = evaluate(expression);
+  return result;
+}
+
 
 export default function Calculator() {
 
@@ -15,11 +22,19 @@ export default function Calculator() {
 
   const handleClick = (val) => {
 
-    const operators = ['÷', 'x', '-', '=', '+'];
+    const operators = ['/', '*', '-', '=', '+'];
 
-    value === '' && (val === '0' || operators.includes(val))
-      ? setValue('')
-      : (val !== 'AC' ? setValue((prev) => prev + val) : setValue(''))
+    if (val === '=') {
+      try {
+        setValue(evalExpression(value).toString())
+      } catch (error) {
+        console.log('Error calculating:', error);
+      }
+    } else {
+      value === '' && (val === '0' || operators.includes(val))
+        ? setValue('')
+        : val !== 'AC' ? setValue((prev) => prev + val) : setValue('')
+    }
   }
 
 
