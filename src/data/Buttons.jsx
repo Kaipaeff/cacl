@@ -1,4 +1,4 @@
-const Buttons = [
+export const buttons = [
   { val: '7', id: 1 },
   { val: '8', id: 2 },
   { val: '9', id: 3 },
@@ -16,6 +16,3 @@ const Buttons = [
   { val: '=', id: 15, operation: true },
   { val: '+', id: 16, operation: true },
 ]
-
-
-export default Buttons;

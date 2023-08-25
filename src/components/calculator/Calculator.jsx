@@ -1,47 +1,56 @@
-import React, { useState, useRef, useEffect } from "react";
-import './calculator.css'
+import React, { useRef, useEffect, useContext } from "react";
+import AppContext from "../../context/AppContext";
 
-import Buttons from '../../buttons/Buttons'
-import {evaluate} from 'mathjs';
+import './calculator.css';
 
-const evalExpression = (expression) => {
-  const result = evaluate(expression);
-  return result;
-}
+import { buttons } from '../../data/Buttons'
+import { operators } from "../../data/Operators";
+import { evalExpression } from "../../functions/functions";
 
 
 export default function Calculator() {
 
-  const [value, setValue] = useState('');
+  const { value, setValue } = useContext(AppContext);
   const inputRef = useRef(null);
 
   useEffect(() => {
     inputRef.current.focus();
   })
 
-
-  const handleClick = (val) => {
-
-    const operators = ['/', '*', '-', '=', '+'];
-
-    if (val === '=') {
-      try {
-        setValue(evalExpression(value).toString())
-      } catch (error) {
-        console.log('Error calculating:', error);
+  const handleClick = async (val) => {
+    try {
+      if (val === '=') {
+        if (value) {
+          const newValue = await evalExpression(value);
+          setValue(newValue);
+        } else {
+          setValue('')
+        }
+      } else if (val === 'AC') {
+        setValue('');
+      } else {
+        setValue((prev) => {
+          if (prev === '' && (val === '0' || operators.includes(val))) {
+            return '';
+          } else if (operators.includes(val) && operators.includes(prev.charAt(prev.length - 1))) {
+            return prev.slice(0, -1) + val;
+          } else {
+            return prev + val;
+          }
+        });
       }
-    } else {
-      value === '' && (val === '0' || operators.includes(val))
-        ? setValue('')
-        : val !== 'AC' ? setValue((prev) => prev + val) : setValue('')
+    } catch (error) {
+      setValue('Ошибка')
+      setTimeout(() => {
+        setValue('')
+      }, 1000)
+      console.log('Error calculating:', error);
     }
   }
-
 
   const handleInputChange = (event) => {
     setValue(event.target.value)
   }
-
 
   return (
     <div className='container'>
@@ -52,11 +61,15 @@ export default function Calculator() {
           value={value}
           onChange={handleInputChange}
           placeholder="0"
+          style={{
+            color: value === 'Ошибка' ? 'red' : 'white',
+            fontSize: value === 'Ошибка' ? '42px' : '78px'
+          }}
         />
       </div>
 
       <div className='buttons'>
-        {Buttons.map(el =>
+        {buttons.map(el =>
           <button
             onClick={() => { handleClick(el.val) }}
             className={el.operation ? 'button operation' : 'button'}
