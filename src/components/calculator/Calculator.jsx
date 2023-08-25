@@ -3,14 +3,14 @@ import AppContext from "../../context/AppContext";
 
 import './calculator.css';
 
-import Buttons from '../../data/Buttons';
+import { buttons } from '../../data/Buttons'
+import { operators } from "../../data/Operators";
 import { evalExpression } from "../../functions/functions";
 
 
 export default function Calculator() {
 
   const { value, setValue } = useContext(AppContext);
-
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -18,15 +18,11 @@ export default function Calculator() {
   })
 
   const handleClick = async (val) => {
-
-    const operators = ['/', '*', '-', '=', '+'];
-
     try {
       if (val === '=') {
         if (value) {
           const newValue = await evalExpression(value);
           setValue(newValue);
-
         } else {
           setValue('')
         }
@@ -52,11 +48,9 @@ export default function Calculator() {
     }
   }
 
-
   const handleInputChange = (event) => {
     setValue(event.target.value)
   }
-
 
   return (
     <div className='container'>
@@ -75,7 +69,7 @@ export default function Calculator() {
       </div>
 
       <div className='buttons'>
-        {Buttons.map(el =>
+        {buttons.map(el =>
           <button
             onClick={() => { handleClick(el.val) }}
             className={el.operation ? 'button operation' : 'button'}

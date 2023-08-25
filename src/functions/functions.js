@@ -1,6 +1,5 @@
 import { evaluate } from 'mathjs';
 
-
 export const evalExpression = (expression, setValue) => {
   try {
     const result = evaluate(expression);

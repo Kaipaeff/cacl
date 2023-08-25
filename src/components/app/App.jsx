@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-
 import AppContext from "../../context/AppContext";
-
 import Calculator from '../calculator/Calculator';
 import './app.css';
 
-function App() {
-
+export default function App() {
   const [value, setValue] = useState('');
 
   return (
@@ -16,6 +13,4 @@ function App() {
       </div>
     </AppContext.Provider>
   );
-}
-
-export default App;
+};
