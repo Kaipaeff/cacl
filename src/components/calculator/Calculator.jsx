@@ -26,10 +26,9 @@ export default function Calculator() {
 
     if (val === '=') {
       try {
-        setValue(evalExpression(value).toString())
+        setValue(evalExpression(value));
       } catch (error) {
         setValue('Ошибка')
-
         setTimeout(() => {
           setValue('')
         }, 2000)
