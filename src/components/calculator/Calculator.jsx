@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import './calculator.css'
 
 import Buttons from '../../buttons/Buttons'
-import {evaluate} from 'mathjs';
+import { evaluate } from 'mathjs';
 
 const evalExpression = (expression) => {
   const result = evaluate(expression);
@@ -28,6 +28,11 @@ export default function Calculator() {
       try {
         setValue(evalExpression(value).toString())
       } catch (error) {
+        setValue('Ошибка')
+
+        setTimeout(() => {
+          setValue('')
+        }, 2000)
         console.log('Error calculating:', error);
       }
     } else {
@@ -52,6 +57,10 @@ export default function Calculator() {
           value={value}
           onChange={handleInputChange}
           placeholder="0"
+          style={{
+            color: value === 'Ошибка' ? 'red' : 'white',
+            fontSize: value === 'Ошибка' ? '42px' : '78px'
+          }}
         />
       </div>
 
