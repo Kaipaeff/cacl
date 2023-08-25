@@ -2,12 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import './calculator.css'
 
 import Buttons from '../../buttons/Buttons'
-import { evaluate } from 'mathjs';
-
-const evalExpression = (expression) => {
-  const result = evaluate(expression);
-  return result;
-}
+import { evalExpression } from "../../functions/functions";
 
 
 export default function Calculator() {
@@ -19,25 +14,39 @@ export default function Calculator() {
     inputRef.current.focus();
   })
 
-
   const handleClick = (val) => {
 
     const operators = ['/', '*', '-', '=', '+'];
 
-    if (val === '=') {
-      try {
-        setValue(evalExpression(value));
-      } catch (error) {
-        setValue('Ошибка')
-        setTimeout(() => {
+    try {
+      if (val === '=') {
+        if (value) {
+          setValue((prev) => {
+            const newValue = evalExpression(prev);
+            return newValue;
+          });
+        } else {
           setValue('')
-        }, 2000)
-        console.log('Error calculating:', error);
+        }
+      } else if (val === 'AC') {
+        setValue('');
+      } else {
+        setValue((prev) => {
+          if (prev === '' && (val === '0' || operators.includes(val))) {
+            return '';
+          } else if (operators.includes(val) && operators.includes(prev.charAt(prev.length - 1))) {
+            return prev.slice(0, -1) + val;
+          } else {
+            return prev + val;
+          }
+        });
       }
-    } else {
-      value === '' && (val === '0' || operators.includes(val))
-        ? setValue('')
-        : val !== 'AC' ? setValue((prev) => prev + val) : setValue('')
+    } catch (error) {
+      setValue('Ошибка')
+      setTimeout(() => {
+        setValue('')
+      }, 500)
+      console.log('Error calculating:', error);
     }
   }
 
