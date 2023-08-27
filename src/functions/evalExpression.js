@@ -1,4 +1,5 @@
 import { evaluate } from 'mathjs';
+import { resultFormat } from './resultFormat';
 
 export const evalExpression = (expression, setValue) => {
   try {
@@ -11,11 +12,4 @@ export const evalExpression = (expression, setValue) => {
     }, 500)
     console.log('calculating function error:', error);
   }
-}
-
-export const resultFormat = (result) => {
-  const parsedResult = parseFloat(result);
-  return parsedResult % 1 === 0
-    ? parsedResult.toString()
-    : parsedResult.toFixed(2).toString();
-}
+};
