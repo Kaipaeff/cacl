@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import AppContext from "../../context/AppContext";
 import Calculator from '../calculator/Calculator';
+import CalculatorContextProvider from "../../context/CalculatorContext";
+
 import './app.css';
 
 export default function App() {
-  const [value, setValue] = useState('');
 
   return (
-    <AppContext.Provider value={{ value, setValue }}>
-      <div className='App'>
+    <div className='App'>
+      <CalculatorContextProvider>
         <Calculator />
-      </div>
-    </AppContext.Provider>
+      </CalculatorContextProvider>
+    </div>
   );
 };
