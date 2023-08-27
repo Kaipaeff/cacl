@@ -1,56 +1,14 @@
-import React, { useRef, useEffect, useContext } from "react";
-import AppContext from "../../context/AppContext";
+import { useContext } from "react";
+import { CalculatorContext } from "../../context/CalculatorContext";
 
 import './calculator.css';
 
-import { buttons } from '../../data/Buttons';
-import { operators } from "../../data/Operators";
-import { evalExpression } from "../../functions/functions";
+import { buttons } from '../../data/Buttons'
 
 
 export default function Calculator() {
 
-  const { value, setValue } = useContext(AppContext);
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    inputRef.current.focus();
-  })
-
-  const handleClick = async (val) => {
-    try {
-      if (val === '=') {
-        if (value) {
-          const newValue = await evalExpression(value);
-          setValue(newValue);
-        } else {
-          setValue('');
-        }
-      } else if (val === 'AC') {
-        setValue('');
-      } else {
-        setValue((prev) => {
-          if (prev === '' && (val === '0' || operators.includes(val))) {
-            return '';
-          } else if (operators.includes(val) && operators.includes(prev.charAt(prev.length - 1))) {
-            return prev.slice(0, -1) + val;
-          } else {
-            return prev + val;
-          }
-        });
-      }
-    } catch (error) {
-      setValue('Ошибка');
-      setTimeout(() => {
-        setValue('');
-      }, 1000);
-      console.log('Error calculating:', error);
-    }
-  }
-
-  const handleInputChange = (event) => {
-    setValue(event.target.value);
-  }
+  const { value, inputRef, handleClick, handleInputChange } = useContext(CalculatorContext);
 
   return (
     <div className='container'>
