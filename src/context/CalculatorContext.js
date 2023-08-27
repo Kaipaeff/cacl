@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, createContext } from "react";
 
-import { evalExpression } from "../functions/functions";
+import { evalExpression } from "../functions/evalExpression";
 import { operators } from "../data/Operators";
 
 

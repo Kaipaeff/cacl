@@ -1,15 +1,10 @@
 import { useContext } from "react";
 import { CalculatorContext } from "../../context/CalculatorContext";
-
+import { buttons } from '../../data/Buttons'
 import './calculator.css';
 
-import { buttons } from '../../data/Buttons'
-
-
 export default function Calculator() {
-
   const { value, inputRef, handleClick, handleInputChange } = useContext(CalculatorContext);
-
   return (
     <div className='container'>
       <div className='output'>
@@ -25,7 +20,6 @@ export default function Calculator() {
           }}
         />
       </div>
-
       <div className='buttons'>
         {buttons.map(el =>
           <button
@@ -36,7 +30,6 @@ export default function Calculator() {
           </button>
         )}
       </div>
-
     </div>
   );
 }
